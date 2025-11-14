@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join Chidiya Udd game room">
+    <title>Join Chidiya Udd Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .room-code {
+            background: #f0f4ff;
+            border: 3px dashed #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            letter-spacing: 3px;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            text-align: left;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        .badge-android {
+            background: #3DDC84;
+            color: white;
+        }
+        
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🐦</div>
+        <h1>Join Chidiya Udd Game</h1>
+        <p class="subtitle">A Cultural Tradition of India</p>
+        
+        <div id="roomCodeDisplay" class="room-code"></div>
+        
+        <div id="status" class="status loading">
+            <div class="spinner"></div>
+            <p id="statusText">Opening the app...</p>
+        </div>
+        
+        <div id="buttons" class="hide">
+            <a id="openAppBtn" href="#" class="btn">🚀 Open in App</a>
+            <a id="playStoreBtn" href="https://play.google.com/store/apps/details?id=com.chidiyaudd.chidiya_udd" class="btn btn-secondary" target="_blank">📥 Download from Play Store</a>
+        </div>
+        
+        <div class="instructions">
+            <strong>📱 How to join:</strong><br><br>
+            <div id="hasAppInstructions">
+                <strong>If you have the app:</strong><br>
+                • Tap "Open in App" above<br>
+                • The game will open automatically<br>
+                • You'll join room <span id="roomCodeInline" style="color: #667eea; font-weight: bold;"></span><br><br>
+            </div>
+            <strong>If you don't have the app:</strong><br>
+            • Tap "Download from Play Store"<br>
+            • Install the app<br>
+            • Open the app and join with code: <span id="roomCodeInline2" style="color: #667eea; font-weight: bold;"></span>
+        </div>
+        
+        <div class="footer">
+            <div>
+                <span class="badge badge-android">Android</span>
+            </div>
+            <p style="margin-top: 10px;">Chidiya Udd 🇮🇳</p>
+        </div>
+    </div>
+
+    <script>
+        // Get room code from URL parameter
+        function getRoomCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('code') || urlParams.get('roomCode') || 'INVALID';
+        }
+
+        const roomCode = getRoomCode();
+        
+        // Display room code in all places
+        document.getElementById('roomCodeDisplay').textContent = roomCode;
+        document.getElementById('roomCodeInline').textContent = roomCode;
+        document.getElementById('roomCodeInline2').textContent = roomCode;
+
+        // Create deep link URLs
+        const customSchemeUrl = `chidiyaudd://join/${roomCode}`;
+        const httpsDeepLink = `https://chidiyaudd.com/join?code=${roomCode}`;
+        
+        // Update button href
+        document.getElementById('openAppBtn').href = customSchemeUrl;
+
+        // Attempt to open the app automatically
+        function attemptAppOpen() {
+            const statusEl = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            
+            // Try custom scheme first
+            window.location.href = customSchemeUrl;
+            
+            // Set a timeout to show manual options if app doesn't open
+            setTimeout(function() {
+                statusEl.className = 'status error';
+                statusText.textContent = '⚠️ App not detected. Please use the buttons below.';
+                document.getElementById('buttons').classList.remove('hide');
+            }, 2500);
+        }
+
+        // Check if user is on mobile
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Check if user is on Android
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+
+        // Track if app opened successfully (best-effort detection)
+        let appOpened = false;
+        let startTime = Date.now();
+        
+        // Detect if page becomes hidden (app opened)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                appOpened = true;
+                const statusEl = document.getElementById('status');
+                const statusText = document.getElementById('statusText');
+                statusEl.className = 'status success';
+                statusText.textContent = '✅ Opening app...';
+            }
+        });
+
+        // Detect if user navigates away (app opened)
+        window.addEventListener('blur', function() {
+            const elapsedTime = Date.now() - startTime;
+            if (elapsedTime < 1000) {
+                appOpened = true;
+            }
+        });
+
+        // Main logic
+        if (isMobile() && isAndroid()) {
+            // On Android mobile, try to open app automatically
+            attemptAppOpen();
+            
+            // After 5 seconds, if still on page, assume app didn't open
+            setTimeout(function() {
+                if (!appOpened) {
+                    const statusEl = document.getElementById('status');
+                    const statusText = document.getElementById('statusText');
+                    statusEl.className = 'status error';
+                    statusText.textContent = '📲 App not installed?';
+                    document.getElementById('buttons').classList.remove('hide');
+                }
+            }, 5000);
+        } else if (isMobile()) {
+            // On iOS or other mobile OS
+            const statusEl = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            statusEl.className = 'status error';
+            statusText.textContent = '📱 Currently Android only';
+            document.getElementById('buttons').classList.remove('hide');
+            document.getElementById('hasAppInstructions').classList.add('hide');
+        } else {
+            // On desktop, show instructions immediately
+            const statusEl = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            statusEl.className = 'status error';
+            statusText.textContent = '💻 Please open this link on your mobile device';
+            document.getElementById('buttons').classList.remove('hide');
+        }
+    </script>
+</body>
+</html>
+
